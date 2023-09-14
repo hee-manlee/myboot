@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper-addrbook">
+
+	<select id="getListAddrBook" resultType="lx.edu.tenth.vo.AddrBook">
+		select *
+		 from addrbook
+	</select>
+	<select id="getAddrBookById" resultType="lx.edu.tenth.vo.AddrBook" parameterType="int">
+		select * 
+		from addrbook 
+		where ab_id = #{id} 
+	</select>
+	<update id="edit" parameterType="lx.edu.tenth.vo.AddrBook">
+		update addrbook
+		<set>
+	      <if test="abName != null">ab_name = #{abName},</if>
+	      <if test="abEmail != null">ab_email = #{abEmail},</if>
+	      <if test="abTel != null">ab_tel = #{abTel},</if>
+	      <if test="abBirth != null">ab_birth = #{abBirth},</if>
+	      <if test="abComdept != null">ab_comdept = #{abComdept},</if>
+	      <if test="abMemo != null">ab_memo = #{abMemo}</if>
+	    </set>
+		where ab_id = #{abId}
+	</update>
+	<insert id="insertAddrBook" parameterType="lx.edu.tenth.vo.AddrBook">
+		insert into
+		addrbook(ab_name, ab_email, ab_tel, ab_birth, ab_comdept, ab_memo)
+		values(#{abName}, #{abEmail}, #{abTel}, #{abBirth}, #{abComdept},
+		#{abMemo})
+	</insert>
+	<delete id="delete" parameterType="int">
+		delete from addrbook
+		where ab_Id = #{abId}
+	
+	</delete>
+</mapper>
