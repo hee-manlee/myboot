@@ -1,4 +1,4 @@
-package lx.edu.tenth.dao;
+package lx.edu.eleventh.dao;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import lx.edu.tenth.vo.AddrBook;
+import lx.edu.eleven.vo.AddrBook;
 
 
 @Repository

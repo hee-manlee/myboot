@@ -1,4 +1,4 @@
-package lx.edu.tenth.controller;
+package lx.edu.eleventh.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import lx.edu.tenth.dao.AddrBookDAO;
-import lx.edu.tenth.vo.AddrBook;
+import lx.edu.eleven.vo.AddrBook;
+import lx.edu.eleventh.dao.AddrBookDAO;
 
 
 @RestController

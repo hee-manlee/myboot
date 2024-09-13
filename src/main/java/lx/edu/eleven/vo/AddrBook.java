@@ -1,4 +1,4 @@
-package lx.edu.tenth.vo;
+package lx.edu.eleven.vo;
 
 public class AddrBook {
 	public int abId;

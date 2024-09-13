@@ -1,4 +1,4 @@
-package lx.edu.tenth.controller;
+package lx.edu.eleventh.controller;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import lx.edu.tenth.dao.AddrBookDAO;
-import lx.edu.tenth.vo.AddrBook;
+import lx.edu.eleven.vo.AddrBook;
+import lx.edu.eleventh.dao.AddrBookDAO;
 
 
 @Controller
