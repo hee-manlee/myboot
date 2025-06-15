@@ -199,7 +199,7 @@
         const coldTemp = coldTemps[timeStep];
         const hotTemp = hotTemps[timeStep];
         document.getElementById('result').innerHTML =
-          `현재 온도:<br>열량계(찬물): ${coldTemp}°C<br>알미늄봉(뜨거운 물): ${hotTemp}°C`;
+          `현재 온도:<br>찬물의 온도: ${coldTemp}°C<br>뜨거운 물의 온도: ${hotTemp}°C`;
         coldDisplay.textContent = `${coldTemp}°C`;
         hotDisplay.textContent = `${hotTemp}°C`;
       } else {
