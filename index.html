@@ -231,7 +231,7 @@ document.querySelectorAll('.area, .metal-rod').forEach(area => {
   area.addEventListener('dragover', e => e.preventDefault());
   
   area.addEventListener('drop', e => {
-    e.preventDefault();
+    ////e.preventDefault();
     const id = e.dataTransfer.getData('text/plain');
     if(!id) {
       id = currentDraggingId;
