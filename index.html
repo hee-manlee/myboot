@@ -146,10 +146,9 @@
         }
         e.dataTransfer.setData('text/plain', id);
       };
-    }
  
-    elem.addEventListener('dragstart', startDrop);
-    elem.addEventListener('touchstart', startDrop);
+      elem.addEventListener('dragstart', startDrop);
+      elem.addEventListener('touchstart', startDrop);
     });
     
     document.querySelectorAll('.area, .metal-rod').forEach(area => {
