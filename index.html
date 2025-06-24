@@ -252,7 +252,7 @@ document.querySelectorAll('.area, .metal-rod').forEach(area => {
 // 공통 드롭 처리 함수
 function handleDrop(area, id) {
   const el = document.getElementById(id);
-  alert(el);
+  ////alert(el);
   if (!el) return;
   
   if (id === 'coldWater' && area.id === 'calorimeterArea' && !coldPoured) {
