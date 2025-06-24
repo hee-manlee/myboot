@@ -243,8 +243,8 @@ document.querySelectorAll('.area, .metal-rod').forEach(area => {
   });
   
   // 모바일용 (터치 종료 시 위치 기반으로 드롭 판단)
-  area.addEventListener('touchend', e => {
-    ////alert('touchend');
+  document.addEventListener('touchend', e => {
+    alert('touchend');
     const touch = e.changedTouches[0];
     const droppedElement = document.elementFromPoint(touch.clientX, touch.clientY);
     const id = droppedElement?.id;
@@ -262,7 +262,7 @@ document.querySelectorAll('.area, .metal-rod').forEach(area => {
 // 공통 드롭 처리 함수
 function handleDrop(area, id) {
   const el = document.getElementById(id);
-  ////alert('handle drop = '+ el + ', id=' + id);
+  alert('handle drop = '+ el + ', id=' + id);
   if (!el) return;
   
   if (id === 'coldWater' && area.id === 'calorimeterArea' && !coldPoured) {
