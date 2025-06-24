@@ -156,7 +156,7 @@
   // 공통 시작 처리 (드래그 또는 터치)
   const startDrop = e => {
     const id = e.target.id;
-    alert(id);
+    alert('start' + id);
     if ((id === 'coldThermometer' || id === 'hotThermometer') && !(coldPoured && hotPoured)) {
       e.preventDefault();
       return;
