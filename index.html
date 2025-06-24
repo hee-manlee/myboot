@@ -137,7 +137,8 @@
     }
 
     document.querySelectorAll('.draggable').forEach(elem => {
-      elem.addEventListener('dragstart', e => {
+
+      const startDrop = e => {
         const id = e.target.id;
         if ((id === 'coldThermometer' || id === 'hotThermometer') && !(coldPoured && hotPoured)) {
           e.preventDefault();
@@ -145,11 +146,17 @@
         }
         e.dataTransfer.setData('text/plain', id);
       });
-    });
+    };
 
+      
+    elem.addEventListener('dragstart', startDrop);
+    elem.addEventListener('touchstart', startDrop);
+   
     document.querySelectorAll('.area, .metal-rod').forEach(area => {
       area.addEventListener('dragover', e => e.preventDefault());
-      area.addEventListener('drop', e => {
+      area.addEventListener('touchend', e => e.preventDefault());
+
+      const doDrop = e => {
         e.preventDefault();
         const id = e.dataTransfer.getData('text/plain');
         const el = document.getElementById(id);
@@ -183,7 +190,10 @@
           hotThermoPlaced = true;
         }
         updateButtonState();
-      });
+      }
+      
+      area.addEventListener('drop', doDrop);
+      area.addEventListener('touchmove', doDrop);
     });
 
     nextBtn.addEventListener('click', () => {
