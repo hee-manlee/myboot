@@ -237,13 +237,13 @@ document.querySelectorAll('.area, .metal-rod').forEach(area => {
       id = currentDraggingId;
       // 사용 후 초기화
       currentDraggingId = null;
-    }
-    alert('drop, id=' + id);
+    } 
+    ////alert('drop, id=' + id);
     handleDrop(area, id);
   });
   
   // 모바일용 (터치 종료 시 위치 기반으로 드롭 판단)
-  document.addEventListener('touchend', e => {
+  area.addEventListener('touchend', e => {
     ////alert('touchend');
     const touch = e.changedTouches[0];
     const droppedElement = document.elementFromPoint(touch.clientX, touch.clientY);
