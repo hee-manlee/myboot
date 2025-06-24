@@ -151,49 +151,113 @@
       elem.addEventListener('touchstart', startDrop);
     });
     
-    document.querySelectorAll('.area, .metal-rod').forEach(area => {
-      area.addEventListener('dragover', e => e.preventDefault());
-      area.addEventListener('touchend', e => e.preventDefault());
+    // document.querySelectorAll('.area, .metal-rod').forEach(area => {
+    //   area.addEventListener('dragover', e => e.preventDefault());
+    //   area.addEventListener('touchend', e => e.preventDefault());
 
-      const doDrop = e => {
-        e.preventDefault();
-        const id = e.dataTransfer.getData('text/plain');
-        const el = document.getElementById(id);
+    //   const doDrop = e => {
+    //     e.preventDefault();
+    //     const id = e.dataTransfer.getData('text/plain');
+    //     const el = document.getElementById(id);
 
-        if (id === 'coldWater' && area.id === 'calorimeterArea' && !coldPoured) {
-          document.getElementById('coldFill').style.height = '80px';
-          coldPoured = true;
-          el.src = './data/beaker-empty.png';
-        }
-        if (id === 'hotWater' && area.id === 'calorimeterArea' && !hotPoured) {
-          document.getElementById('hotFill').style.height = '72px';
-          hotPoured = true;
-          el.src = './data/beaker-empty.png';
-        }
-        if (id === 'coldThermometer' && area.id === 'calorimeterArea') {
-          area.appendChild(coldThermo);
-          coldThermo.style.position = 'absolute';
-          coldThermo.style.left = '10px';
-          coldThermo.style.bottom = '10px';
-          coldThermo.style.zIndex = '9999';
-          coldDisplay.textContent = `${coldTemps[timeStep]}°C`;
-          coldThermoPlaced = true;
-        }
-        if (id === 'hotThermometer' && area.id === 'metalRod') {
-          area.appendChild(hotThermo);
-          hotThermo.style.position = 'absolute';
-          hotThermo.style.left = '10px';
-          hotThermo.style.bottom = '0px';
-          hotThermo.style.zIndex = '9999';
-          hotDisplay.textContent = `${hotTemps[timeStep]}°C`;
-          hotThermoPlaced = true;
-        }
-        updateButtonState();
-      }
+    //     if (id === 'coldWater' && area.id === 'calorimeterArea' && !coldPoured) {
+    //       document.getElementById('coldFill').style.height = '80px';
+    //       coldPoured = true;
+    //       el.src = './data/beaker-empty.png';
+    //     }
+    //     if (id === 'hotWater' && area.id === 'calorimeterArea' && !hotPoured) {
+    //       document.getElementById('hotFill').style.height = '72px';
+    //       hotPoured = true;
+    //       el.src = './data/beaker-empty.png';
+    //     }
+    //     if (id === 'coldThermometer' && area.id === 'calorimeterArea') {
+    //       area.appendChild(coldThermo);
+    //       coldThermo.style.position = 'absolute';
+    //       coldThermo.style.left = '10px';
+    //       coldThermo.style.bottom = '10px';
+    //       coldThermo.style.zIndex = '9999';
+    //       coldDisplay.textContent = `${coldTemps[timeStep]}°C`;
+    //       coldThermoPlaced = true;
+    //     }
+    //     if (id === 'hotThermometer' && area.id === 'metalRod') {
+    //       area.appendChild(hotThermo);
+    //       hotThermo.style.position = 'absolute';
+    //       hotThermo.style.left = '10px';
+    //       hotThermo.style.bottom = '0px';
+    //       hotThermo.style.zIndex = '9999';
+    //       hotDisplay.textContent = `${hotTemps[timeStep]}°C`;
+    //       hotThermoPlaced = true;
+    //     }
+    //     updateButtonState();
+    //   }
       
-      area.addEventListener('drop', doDrop);
-      area.addEventListener('touchmove', doDrop);
-    });
+    //   area.addEventListener('drop', doDrop);
+    //   area.addEventListener('touchmove', doDrop);
+    // });
+
+document.querySelectorAll('.area, .metal-rod').forEach(area => {
+  // 데스크탑용
+  area.addEventListener('dragover', e => e.preventDefault());
+  area.addEventListener('drop', e => {
+    e.preventDefault();
+    const id = e.dataTransfer.getData('text/plain');
+    handleDrop(area, id);
+  });
+
+  // 모바일용 (터치 종료 시 위치 기반으로 드롭 판단)
+  area.addEventListener('touchend', e => {
+    const touch = e.changedTouches[0];
+    const droppedElement = document.elementFromPoint(touch.clientX, touch.clientY);
+    const id = droppedElement?.id;
+
+    if (!id) return;
+
+    const draggingId = document.querySelector('.dragging')?.id;
+    if (draggingId) {
+      handleDrop(area, draggingId);
+      document.querySelector('.dragging')?.classList.remove('dragging');
+    }
+  });
+});
+
+// 공통 드롭 처리 함수
+function handleDrop(area, id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  if (id === 'coldWater' && area.id === 'calorimeterArea' && !coldPoured) {
+    document.getElementById('coldFill').style.height = '80px';
+    coldPoured = true;
+    el.src = './data/beaker-empty.png';
+  }
+  if (id === 'hotWater' && area.id === 'calorimeterArea' && !hotPoured) {
+    document.getElementById('hotFill').style.height = '72px';
+    hotPoured = true;
+    el.src = './data/beaker-empty.png';
+  }
+  if (id === 'coldThermometer' && area.id === 'calorimeterArea') {
+    area.appendChild(coldThermo);
+    coldThermo.style.position = 'absolute';
+    coldThermo.style.left = '10px';
+    coldThermo.style.bottom = '10px';
+    coldThermo.style.zIndex = '9999';
+    coldDisplay.textContent = `${coldTemps[timeStep]}°C`;
+    coldThermoPlaced = true;
+  }
+  if (id === 'hotThermometer' && area.id === 'metalRod') {
+    area.appendChild(hotThermo);
+    hotThermo.style.position = 'absolute';
+    hotThermo.style.left = '10px';
+    hotThermo.style.bottom = '0px';
+    hotThermo.style.zIndex = '9999';
+    hotDisplay.textContent = `${hotTemps[timeStep]}°C`;
+    hotThermoPlaced = true;
+  }
+
+  updateButtonState();
+}
+
+    
 
     nextBtn.addEventListener('click', () => {
       if (!(coldPoured && hotPoured && coldThermoPlaced && hotThermoPlaced)) {
