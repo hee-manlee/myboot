@@ -151,29 +151,29 @@
     //   elem.addEventListener('touchstart', startDrop);
     // });
 
-    document.querySelectorAll('.draggable').forEach(elem => {
+  document.querySelectorAll('.draggable').forEach(elem => {
 
-  // 공통 시작 처리 (드래그 또는 터치)
-  const startDrop = e => {
-    const id = e.target.id;
-    alert('start ㅑㅇ=' + id);
-    if ((id === 'coldThermometer' || id === 'hotThermometer') && !(coldPoured && hotPoured)) {
-      e.preventDefault();
-      return;
-    }
-    
-    
-    // 데스크탑 드래그 데이터 설정
-    if (e.dataTransfer) {
-      e.dataTransfer.setData('text/plain', id);
-    }
+    // 공통 시작 처리 (드래그 또는 터치)
+    function  startDrop(e){
+      const id = e.target.id;
+      alert('start id=' + id);
+      if ((id === 'coldThermometer' || id === 'hotThermometer') && !(coldPoured && hotPoured)) {
+        e.preventDefault();
+        return;
+      }
+      
+      
+      // 데스크탑 드래그 데이터 설정
+      if (e.dataTransfer) {
+        e.dataTransfer.setData('text/plain', id);
+      }
+  
+      // 모바일: dragging 클래스 추가
+      elem.classList.add('dragging');
+    };
 
-    // 모바일: dragging 클래스 추가
-    elem.classList.add('dragging');
-  };
-
-  elem.addEventListener('dragstart', startDrop);
-  elem.addEventListener('touchstart', startDrop);
+    elem.addEventListener('dragstart', startDrop);
+    elem.addEventListener('touchstart', startDrop);
 });
 
 
