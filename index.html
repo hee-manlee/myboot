@@ -132,6 +132,8 @@
     const nextBtn = document.getElementById('nextBtn');
     const warningMsg = document.getElementById('warningMsg');
 
+    let currentDraggingId = null;
+
     function updateButtonState() {
       ////nextBtn.disabled = !(coldPoured && hotPoured && coldThermoPlaced && hotThermoPlaced);
     }
@@ -169,6 +171,7 @@
       }
   
       // 모바일: dragging 클래스 추가
+      currentDraggingId = e.target.id;
       elem.classList.add('dragging');
     };
 
@@ -228,8 +231,14 @@ document.querySelectorAll('.area, .metal-rod').forEach(area => {
   area.addEventListener('dragover', e => e.preventDefault());
   
   area.addEventListener('drop', e => {
-    ////e.preventDefault();
+    e.preventDefault();
     const id = e.dataTransfer.getData('text/plain');
+    if(!id) {
+      id = currentDraggingId;
+      // 사용 후 초기화
+      currentDraggingId = null;
+    }
+    alert('drop, id=' + id);
     handleDrop(area, id);
   });
   
