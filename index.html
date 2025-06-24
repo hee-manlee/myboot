@@ -225,13 +225,14 @@
 
 document.querySelectorAll('.area, .metal-rod').forEach(area => {
   // 데스크탑용
-  area.addEventListener('dragover', e => e.preventDefault());
+  ////area.addEventListener('dragover', e => e.preventDefault());
+  /*
   area.addEventListener('drop', e => {
     e.preventDefault();
     const id = e.dataTransfer.getData('text/plain');
     handleDrop(area, id);
   });
-
+  */
   // 모바일용 (터치 종료 시 위치 기반으로 드롭 판단)
   area.addEventListener('touchend', e => {
     alert('touchend');
