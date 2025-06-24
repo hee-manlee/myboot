@@ -156,11 +156,13 @@
   // 공통 시작 처리 (드래그 또는 터치)
   const startDrop = e => {
     const id = e.target.id;
+    /*
     if ((id === 'coldThermometer' || id === 'hotThermometer') && !(coldPoured && hotPoured)) {
       e.preventDefault();
       return;
     }
-
+    */
+    
     // 데스크탑 드래그 데이터 설정
     if (e.dataTransfer) {
       e.dataTransfer.setData('text/plain', id);
