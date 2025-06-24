@@ -133,6 +133,9 @@
     const warningMsg = document.getElementById('warningMsg');
 
     let currentDraggingId = null;
+    let offsetX = 0;
+    let offsetY = 0;
+    let draggedEl = null;
 
     function updateButtonState() {
       ////nextBtn.disabled = !(coldPoured && hotPoured && coldThermoPlaced && hotThermoPlaced);
@@ -173,11 +176,31 @@
       // 모바일: dragging 클래스 추가
       currentDraggingId = e.target.id;
       elem.classList.add('dragging');
+      draggedEl = e.currentTarget;
+      const touch = e.touches[0];
+      const rect = draggedEl.getBoundingClientRect();
+      offsetX = touch.clientX - rect.left;
+      offsetY = touch.clientY - rect.top;
+    
+      draggedEl.classList.add('dragging');
+      draggedEl.style.position = 'absolute';
+      draggedEl.style.zIndex = '9999';
+
+      // 이동 핸들러 등록
+      document.addEventListener('touchmove', onTouchMove);
+      ////document.addEventListener('touchend', onTouchEnd, { once: true }); // 한 번만 실행 후 자동 제거
     };
 
     elem.addEventListener('dragstart', startDrop);
     elem.addEventListener('touchstart', startDrop);
 });
+
+function onTouchMove(e) {
+  if (!draggedEl) return;
+  const touch = e.touches[0];
+  draggedEl.style.left = (touch.clientX - offsetX) + 'px';
+  draggedEl.style.top = (touch.clientY - offsetY) + 'px';
+}
 
 
 
@@ -243,7 +266,8 @@ document.querySelectorAll('.area, .metal-rod').forEach(area => {
   });
   
   // 모바일용 (터치 종료 시 위치 기반으로 드롭 판단)
-  document.addEventListener('touchend', e => {
+  
+  area.addEventListener('touchend', e => {
     alert('touchend');
     const touch = e.changedTouches[0];
     const droppedElement = document.elementFromPoint(touch.clientX, touch.clientY);
@@ -256,7 +280,8 @@ document.querySelectorAll('.area, .metal-rod').forEach(area => {
       handleDrop(area, draggingId);
       document.querySelector('.dragging')?.classList.remove('dragging');
     }
-  });
+  }, { once: true });
+  
 });
 
 // 공통 드롭 처리 함수
