@@ -133,6 +133,7 @@
     const warningMsg = document.getElementById('warningMsg');
 
     let currentDraggingId = null;
+    
     let offsetX = 0;
     let offsetY = 0;
     let draggedEl = null;
@@ -174,34 +175,36 @@
       }
   
       // 모바일: dragging 클래스 추가
+    
       currentDraggingId = e.target.id;
       elem.classList.add('dragging');
+
+      /*
       draggedEl = e.currentTarget;
       const touch = e.touches[0];
       const rect = draggedEl.getBoundingClientRect();
       offsetX = touch.clientX - rect.left;
       offsetY = touch.clientY - rect.top;
-    
+      */
+      
       draggedEl.classList.add('dragging');
       draggedEl.style.position = 'absolute';
       draggedEl.style.zIndex = '9999';
 
-      // 이동 핸들러 등록
-      document.addEventListener('touchmove', onTouchMove);
-      ////document.addEventListener('touchend', onTouchEnd, { once: true }); // 한 번만 실행 후 자동 제거
     };
 
     elem.addEventListener('dragstart', startDrop);
     elem.addEventListener('touchstart', startDrop);
 });
 
+    /*
 function onTouchMove(e) {
   if (!draggedEl) return;
   const touch = e.touches[0];
   draggedEl.style.left = (touch.clientX - offsetX) + 'px';
   draggedEl.style.top = (touch.clientY - offsetY) + 'px';
 }
-
+*/
 
 
     
@@ -259,7 +262,7 @@ document.querySelectorAll('.area, .metal-rod').forEach(area => {
     if(!id) {
       id = currentDraggingId;
       // 사용 후 초기화
-      currentDraggingId = null;
+      ////currentDraggingId = null;
     } 
     ////alert('drop, id=' + id);
     handleDrop(area, id);
