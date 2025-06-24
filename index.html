@@ -146,12 +146,12 @@
         }
         e.dataTransfer.setData('text/plain', id);
       };
-    });
-
-      
+    }
+ 
     elem.addEventListener('dragstart', startDrop);
     elem.addEventListener('touchstart', startDrop);
-   
+    });
+    
     document.querySelectorAll('.area, .metal-rod').forEach(area => {
       area.addEventListener('dragover', e => e.preventDefault());
       area.addEventListener('touchend', e => e.preventDefault());
